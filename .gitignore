@@ -1,0 +1,6 @@
+env/
+venv/
+.env
+**/*.DS_Store
+embeddings/
+archive/
