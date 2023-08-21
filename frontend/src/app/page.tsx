@@ -5,27 +5,20 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { MonospaceLabel, MonospaceLink } from "@/components/label";
 import SearchInput from "@/components/searchInput";
-
-const tweetText = (subject: string) =>
-  `I'm voting for @macrocosmcorp to embed ${subject} and open-source the weights.`;
-
-function generateTwitterIntent(text: string, url: string) {
-  var startText = "https://twitter.com/intent/tweet?text=";
-  var generatedTweet = encodeURIComponent(text);
-  var generatedUrl = url ? "&url=" + encodeURIComponent(url) : "";
-  return startText + generatedTweet + generatedUrl;
-}
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+  const query = router.query.q ? router.query.q.toString() : null;
   return (
     <main className="flex flex-col mx-auto max-w-custom min-h-screen flex-grow pt-4 px-2">
       <Header />
-      <SearchInput />
-      <div className="flex flex-col w-full mt-4 gap-y-8">
-        <Block title="Downloads">
-          <DownloadsBlock />
+      <SearchInput intitalQuery={query} />
+      <div className="flex flex-col w-full my-4 gap-y-8">
+        <Block title="Results">
+          <ResultsBlock query={query} />
         </Block>
-        <Block title="Support">
+        <Block title="About">
           <AboutBlock />
         </Block>
       </div>
@@ -38,17 +31,128 @@ function AboutBlock() {
   return (
     <div className="w-full px-2 py-1 border-tiny border-lines-soft">
       <p className="text-basesm font-sans font-normal text-letter-default">
-        Help support our initiative by building with our datasets, voting on
-        what you want next, spreading the word about the project, or even
-        donating to help us in our mission to embed the internet. If you’re
-        interested in our work or want to contribute, get in touch!
-      </p>
-      <p className="text-basesm font-sans font-normal text-letter-soft">
-        PS. Are you a vector database company? Want the future to be built on
-        your platform? We&apos;re looking for partners to build Alexandria.
+        This website allows you to semantically search through a corpus of
+        SCOTUS opinions. This means you can just describe the situation in your
+        words instead of struggling to figure out the right keywords and
+        phrases. Use the search bar above, and we'll find the most relevant
+        opinions for you.
       </p>
     </div>
   );
+}
+
+async function getResults(query: string) {
+  const res = await fetch("http://localhost:5000/search", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: query }),
+  });
+
+  const response = await res.json();
+  const results = response.results;
+  const nextUrl = response.next_url;
+  return { results, nextUrl };
+}
+
+async function ResultsBlock({ query }: { query: string | null }) {
+  /* const results = [
+    {
+      case_name: "McCutcheon v. Federal Election Comm'n",
+      text: "There is no right more basic in our democracy than the right to participate in electing our political leaders. Citi- zens can exercise that right in a variety of ways: They can run for office themselves, vote, urge others to vote for a particular candidate, volunteer to work on a campaign, and contribute to a candidate’s campaign. This case is about the last of th",
+      absolute_url: "link",
+      author_name: "Justice Frankfurter",
+      category: "majority",
+      date_filed: "2021-05-04",
+    },
+    {
+      case_name: "P",
+      text: "pushin",
+      absolute_url: "link",
+      author_name: "jeffery",
+      category: "majority",
+      date_filed: "2021-05-04",
+    },
+    {
+      case_name: "P",
+      text: "pushin",
+      absolute_url: "link",
+      author_name: "jeffery",
+      category: "majority",
+      date_filed: "2021-05-04",
+    },
+    {
+      case_name: "P",
+      text: "pushin",
+      absolute_url: "link",
+      author_name: "jeffery",
+      category: "majority",
+      date_filed: "2021-05-04",
+    },
+  ]; */
+
+  if (query === null) return null;
+  const { results, nextUrl } = await getResults(query);
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      {results.map((result, i) => (
+        <Result data={result} key={i} />
+      ))}
+    </div>
+  );
+}
+
+function Result({ data }: { data: any }) {
+  return (
+    <div className="grid grid-cols-[1fr_100px] w-full grid-rows-1 gap-x-6 p-2 border-tiny border-lines-soft text-basesm">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-row justify-between items-center gap-2">
+          <div className="font-sans text-lg font-bold text-letter-default">
+            {data.case_name}
+          </div>
+          <div>
+            <MonospaceLink
+              text="Go to case"
+              color="green"
+              width={120}
+              link={data.absolute_url}
+            />
+          </div>
+        </div>
+        <div className="lines-3 text-sm">{data.text}</div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <div>
+          <div className="font-sans font-bold text-letter-default">
+            Date Filed
+          </div>
+          <div>{data.date_filed}</div>
+        </div>
+        <div>
+          <div className="font-sans font-bold text-letter-default">
+            Category
+          </div>
+          <div>{beautify(data.category)}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function beautify(str: string) {
+  if (str === "") {
+    return "";
+  }
+
+  const words = str.split("_");
+  const firstWord = words[0].charAt(0).toUpperCase() + words[0].slice(1);
+  const remainingWords = words.slice(1).join(" ");
+
+  if (words.length === 1) {
+    return firstWord;
+  }
+
+  return firstWord + " " + remainingWords;
 }
 
 interface DownloadRowProps {

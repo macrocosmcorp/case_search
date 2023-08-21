@@ -2,70 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer utilities {
   .mono-bold {
-    font-variation-settings: 'wght' 150;
+    font-variation-settings: "wght" 150;
   }
 
   .mono-medium {
-    font-variation-settings: 'wght' 125;
+    font-variation-settings: "wght" 125;
   }
 
   .mono-light {
-    font-variation-settings: 'wght' 115;
+    font-variation-settings: "wght" 115;
   }
 
   .font-footer {
-    font-variation-settings: 'wght' 700, 'wdth' 5;
+    font-variation-settings: "wght" 700, "wdth" 5;
   }
 
   .font-thin {
-    font-variation-settings: 'wght' 100, 'wdth' 4.3;
+    font-variation-settings: "wght" 100, "wdth" 4.3;
   }
 
   .font-extralight {
-    font-variation-settings: 'wght' 140, 'wdth' 4.3;
+    font-variation-settings: "wght" 140, "wdth" 4.3;
   }
 
   .font-light {
-    font-variation-settings: 'wght' 300, 'wdth' 4.3;
+    font-variation-settings: "wght" 300, "wdth" 4.3;
   }
 
   .font-normal {
-    font-variation-settings: 'wght' 400, 'wdth' 4.3;
+    font-variation-settings: "wght" 400, "wdth" 4.3;
   }
 
   .font-medium {
-    font-variation-settings: 'wght' 500, 'wdth' 4.3;
+    font-variation-settings: "wght" 500, "wdth" 4.3;
   }
 
   .font-semibold {
-    font-variation-settings: 'wght' 600, 'wdth' 4.3;
+    font-variation-settings: "wght" 600, "wdth" 4.3;
   }
 
   .font-bold {
-    font-variation-settings: 'wght' 650, 'wdth' 4.5;
+    font-variation-settings: "wght" 650, "wdth" 4.5;
   }
 
   .font-extrabold {
-    font-variation-settings: 'wght' 800, 'wdth' 4.3;
+    font-variation-settings: "wght" 800, "wdth" 4.3;
   }
 
   .font-black {
-    font-variation-settings: 'wght' 900, 'wdth' 4.3;
+    font-variation-settings: "wght" 900, "wdth" 4.3;
   }
 }
 
 @font-face {
-  font-family: 'ABC Social';
-  src: url('../../public/fonts/ABCSocialPlusVariableEdu.woff2') format('woff2-variations');
+  font-family: "ABC Social";
+  src: url("../../public/fonts/ABCSocialPlusVariableEdu.woff2")
+    format("woff2-variations");
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Berkeley Mono';
-  src: url('../../public/fonts/BerkeleyMonoVariable-Regular.woff2') format('woff2-variations');
+  font-family: "Berkeley Mono";
+  src: url("../../public/fonts/BerkeleyMonoVariable-Regular.woff2")
+    format("woff2-variations");
   font-display: swap;
 }
 
@@ -85,4 +86,13 @@ body {
 
 .grid-cols-religionRow {
   grid-template-columns: 123px 1fr 107px 111px 130px 102px;
+}
+
+.lines-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3; /* Number of lines to display */
+  line-clamp: 3; /* Number of lines to display */
 }

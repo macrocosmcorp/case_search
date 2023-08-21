@@ -37,7 +37,7 @@ def search():
 
     # Get the top 10 results from the parquet file
     results = [df.loc[doc_id, ['author_name', 'category', 'per_curiam',
-                               'case_name', 'date_filed', 'text']].to_json() for doc_id in doc_ids]
+                               'case_name', 'date_filed', 'text', 'absolute_url']].to_json() for doc_id in doc_ids]
 
     # Get the API route for the next 10 results
     next_results_route = f"/search?query={query}&offset={offset + 10}"

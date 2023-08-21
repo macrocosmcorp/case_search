@@ -2,8 +2,12 @@
 import axios from "axios";
 import { useState } from "react";
 
-export default function SearchInput() {
-  const [query, setQuery] = useState("");
+export default function SearchInput({
+  intitalQuery,
+}: {
+  intitalQuery: string | null;
+}) {
+  const [query, setQuery] = useState(intitalQuery || "");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -29,7 +33,7 @@ export default function SearchInput() {
         type="text"
         value={query}
         onChange={handleInputChange}
-        placeholder="Enter your search query"
+        placeholder="Search SCOTUS opinions..."
         className="flex-grow px-2 py-1 border-tiny border-lines-soft text-basesm font-medium"
       />
       <button
