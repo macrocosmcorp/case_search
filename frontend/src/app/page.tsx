@@ -1,26 +1,37 @@
-import { useState } from "react";
-import axios from "axios";
 import Block from "@/components/body";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { MonospaceLabel, MonospaceLink } from "@/components/label";
 import SearchInput from "@/components/searchInput";
-import { useRouter } from "next/router";
+import { Suspense } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-export default function Home() {
-  const router = useRouter();
-  const query = router.query.q ? router.query.q.toString() : null;
+export default function Home({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const query = searchParams.q?.toString() || null;
   return (
     <main className="flex flex-col mx-auto max-w-custom min-h-screen flex-grow pt-4 px-2">
       <Header />
       <SearchInput intitalQuery={query} />
       <div className="flex flex-col w-full my-4 gap-y-8">
-        <Block title="Results">
-          <ResultsBlock query={query} />
-        </Block>
-        <Block title="About">
-          <AboutBlock />
-        </Block>
+        {query && (
+          <Block title="Results">
+            <Suspense fallback={<Skeleton count={5} />}>
+              <ResultsBlock query={query} />
+            </Suspense>
+          </Block>
+        )}
+        {!query && (
+          <Block title="About">
+            <AboutBlock />
+          </Block>
+        )}
       </div>
       <Footer />
     </main>
@@ -42,97 +53,62 @@ function AboutBlock() {
 }
 
 async function getResults(query: string) {
-  const res = await fetch("http://localhost:5000/search", {
+  const res = await fetch("http://127.0.0.1:5000/search", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: query }),
   });
 
-  const response = await res.json();
-  const results = response.results;
-  const nextUrl = response.next_url;
-  return { results, nextUrl };
+  return await res.json();
 }
 
 async function ResultsBlock({ query }: { query: string | null }) {
-  /* const results = [
-    {
-      case_name: "McCutcheon v. Federal Election Comm'n",
-      text: "There is no right more basic in our democracy than the right to participate in electing our political leaders. Citi- zens can exercise that right in a variety of ways: They can run for office themselves, vote, urge others to vote for a particular candidate, volunteer to work on a campaign, and contribute to a candidate’s campaign. This case is about the last of th",
-      absolute_url: "link",
-      author_name: "Justice Frankfurter",
-      category: "majority",
-      date_filed: "2021-05-04",
-    },
-    {
-      case_name: "P",
-      text: "pushin",
-      absolute_url: "link",
-      author_name: "jeffery",
-      category: "majority",
-      date_filed: "2021-05-04",
-    },
-    {
-      case_name: "P",
-      text: "pushin",
-      absolute_url: "link",
-      author_name: "jeffery",
-      category: "majority",
-      date_filed: "2021-05-04",
-    },
-    {
-      case_name: "P",
-      text: "pushin",
-      absolute_url: "link",
-      author_name: "jeffery",
-      category: "majority",
-      date_filed: "2021-05-04",
-    },
-  ]; */
-
   if (query === null) return null;
-  const { results, nextUrl } = await getResults(query);
+  const results = await getResults(query);
 
   return (
     <div className="w-full flex flex-col gap-4">
       {results.map((result, i) => (
-        <Result data={result} key={i} />
+        <Result data={JSON.parse(result)} key={i} />
       ))}
     </div>
   );
 }
 
 function Result({ data }: { data: any }) {
+  if (!data) return null;
   return (
     <div className="grid grid-cols-[1fr_100px] w-full grid-rows-1 gap-x-6 p-2 border-tiny border-lines-soft text-basesm">
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center gap-2">
           <div className="font-sans text-lg font-bold text-letter-default">
-            {data.case_name}
+            {data.case_name || "No Case Name"}
           </div>
           <div>
-            <MonospaceLink
-              text="Go to case"
-              color="green"
-              width={120}
-              link={data.absolute_url}
-            />
+            {data.absolute_url && (
+              <MonospaceLink
+                text="Go to case"
+                color="green"
+                width={120}
+                link={data.absolute_url}
+              />
+            )}
           </div>
         </div>
-        <div className="lines-3 text-sm">{data.text}</div>
+        <div className="lines-3 text-sm">{data.text || "No Text"}</div>
       </div>
       <div className="flex flex-col gap-4">
         <div>
           <div className="font-sans font-bold text-letter-default">
             Date Filed
           </div>
-          <div>{data.date_filed}</div>
+          <div>{data.date_filed || "No Date"}</div>
         </div>
         <div>
           <div className="font-sans font-bold text-letter-default">
             Category
           </div>
-          <div>{beautify(data.category)}</div>
+          <div>{beautify(data.category || "No Category")}</div>
         </div>
       </div>
     </div>
