@@ -26,7 +26,7 @@ export default function SearchInput({
         type="text"
         defaultValue={intitalQuery || ""}
         placeholder="Search SCOTUS opinions..."
-        className="flex-grow px-2 py-1 border-tiny border-lines-soft text-basesm font-medium"
+        className="flex-grow px-2 py-1 border-tiny border-lines-soft text-basesm font-medium rounded-none"
       />
       <button
         type="submit"
