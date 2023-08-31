@@ -44,13 +44,13 @@ async function ResultsBlock({
 function Result({ data }: { data: any }) {
   if (!data) return null;
   return (
-    <div className="grid grid-cols-[1fr_100px] w-full grid-rows-1 gap-x-6 p-2 border-tiny border-lines-soft text-basesm">
+    <div className="grid sm:grid-cols-[1fr_100px] w-full grid-rows-1 gap-x-6 gap-y-2 p-2 border-tiny border-lines-soft text-basesm">
       <div className="flex flex-col gap-4">
         <div className="flex flex-row justify-between items-center gap-2">
-          <div className="font-sans text-lg font-semibold text-letter-default">
+          <div className="font-sans text-lg font-semibold text-letter-default break-words">
             {data.case_name || "No Case Name"}
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-col gap-2">
             {data.absolute_url && (
               <MonospaceLink
                 text="Go to case"
@@ -71,7 +71,7 @@ function Result({ data }: { data: any }) {
         </div>
         <div className="lines-3 text-sm">{data.text || "No Text"}</div>
       </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex sm:flex-col flex-row justify-between sm:justify-normal gap-4">
         <div>
           <div className="font-sans font-semibold text-letter-default">
             Date Filed
