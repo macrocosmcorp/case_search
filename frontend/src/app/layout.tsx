@@ -18,15 +18,13 @@ const BerkeleyMono = localFont({
 });
 
 export const metadata = {
-  title: "THE ALEXANDRIA INDEX",
-  description:
-    "From barbarism to civilization requires a century; from civilization to barbarism needs but a day.",
+  title: "CASEARCH",
+  description: "Semantic search for U.S. Case Law.",
   openGraph: {
-    title: "THE ALEXANDRIA INDEX",
-    description:
-      "From barbarism to civilization requires a century; from civilization to barbarism needs but a day.",
+    title: "CASEARCH",
+    description: "Semantic search for U.S. Case Law.",
     url: "https://alex.macrocosm.so",
-    siteName: "THE ALEXANDRIA INDEX",
+    siteName: "CASEARCH",
     images: [
       {
         url: "https://alex.macrocosm.so/static/AlexOG.png",
@@ -39,9 +37,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "THE ALEXANDRIA INDEX",
-    description:
-      "From barbarism to civilization requires a century; from civilization to barbarism needs but a day.",
+    title: "CASEARCH",
+    description: "Semantic search for U.S. Case Law.",
     siteId: "1515531815594864640",
     creator: "@macrocosmcorp",
     creatorId: "1515531815594864640",
