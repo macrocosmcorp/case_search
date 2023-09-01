@@ -5,12 +5,14 @@ FROM python:3.9-buster
 WORKDIR /app
 
 # Add the current directory contents into the container at /app
-ADD . /app
+ADD main.py main.py
+ADD requirements.txt requirements.txt
 
-RUN curl -L -o embeddings/scotus_opinions.parquet https://github.com/macrocosmcorp/casearch/raw/main/embeddings/scotus_opinions.parquet
+RUN mkdir embeddings
+RUN curl -o embeddings/scotus_opinions.parquet -L https://www.dropbox.com/s/62cisdg8n71gljp/scotus_opinions.parquet?dl=1
 
 # Install any needed packages specified in requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN pip install -r requirements.txt
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
