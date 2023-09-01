@@ -17,4 +17,4 @@ RUN pip install -r requirements.txt
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:8000", "main:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:8000", "main:app"]
