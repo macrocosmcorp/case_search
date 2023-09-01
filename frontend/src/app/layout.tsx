@@ -23,11 +23,11 @@ export const metadata = {
   openGraph: {
     title: "CASEARCH",
     description: "Semantic search for U.S. Case Law.",
-    url: "https://alex.macrocosm.so",
+    url: "https://casearch.vercel.app",
     siteName: "CASEARCH",
     images: [
       {
-        url: "https://alex.macrocosm.so/static/AlexOG.png",
+        url: "https://casearch.vercel.app/static/macro.jpeg",
         width: 1200,
         height: 630,
       },
@@ -42,7 +42,7 @@ export const metadata = {
     siteId: "1515531815594864640",
     creator: "@macrocosmcorp",
     creatorId: "1515531815594864640",
-    images: ["https://alex.macrocosm.so/static/AlexOG.png"],
+    images: ["https://casearch.vercel.app/static/macro.jpeg"],
   },
 };
 
