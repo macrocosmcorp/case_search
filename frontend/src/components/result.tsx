@@ -2,7 +2,7 @@ import { MonospaceLabel, MonospaceLink } from "@/components/label";
 
 async function getResults(query: string | null, id: string | null) {
   if (query !== null) {
-    const res = await fetch("http://127.0.0.1:5000/search", {
+    const res = await fetch(`${process.env.API_URL}/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: query }),
@@ -10,7 +10,7 @@ async function getResults(query: string | null, id: string | null) {
 
     return await res.json();
   } else if (id !== null) {
-    const res = await fetch("http://127.0.0.1:5000/similar", {
+    const res = await fetch(`${process.env.API_URL}/similar`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: Number(id) }),
