@@ -7,7 +7,6 @@ WORKDIR /app
 # Add the current directory contents into the container at /app
 ADD . /app
 
-RUN mkdir embeddings
 RUN curl -L -o embeddings/scotus_opinions.parquet https://github.com/macrocosmcorp/casearch/raw/main/embeddings/scotus_opinions.parquet
 
 # Install any needed packages specified in requirements.txt
