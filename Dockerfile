@@ -14,6 +14,3 @@ RUN pip install -r /app/requirements.txt
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
-
-# Run Gunicorn when the container launches
-CMD ["gunicorn", '-w', '4', "--bind", "0.0.0.0:8000", "main:app"]
