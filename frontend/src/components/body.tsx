@@ -12,7 +12,7 @@ export default function Block({
   const marginStyle = marginBottom ? `mb-${marginBottom}` : "";
   return (
     <div className={clsx("flex flex-col w-full", marginStyle)}>
-      <h1 className="text-base font-sans font-semibold text-letter-default mb-1">
+      <h1 className="text-base font-sans font-medium text-letter-default mb-1">
         {title}
       </h1>
       {children}
