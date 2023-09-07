@@ -18,18 +18,18 @@ const BerkeleyMono = localFont({
 });
 
 export const metadata = {
-  title: "CASEARCH",
+  title: "CASE SEARCH",
   description: "Semantic search for U.S. Case Law.",
   openGraph: {
-    title: "CASEARCH",
+    title: "CASE SEARCH",
     description: "Semantic search for U.S. Case Law.",
-    url: "https://casearch.vercel.app",
-    siteName: "CASEARCH",
+    url: "https://casesearch.vercel.app",
+    siteName: "CASE SEARCH",
     images: [
       {
-        url: "https://casearch.vercel.app/static/macro.jpeg",
-        width: 1200,
-        height: 630,
+        url: "https://casesearch.vercel.app/static/macro.jpeg",
+        width: 1500,
+        height: 500,
       },
     ],
     locale: "en-US",
@@ -37,12 +37,10 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CASEARCH",
+    title: "CASE SEARCH",
     description: "Semantic search for U.S. Case Law.",
-    siteId: "1515531815594864640",
-    creator: "@macrocosmcorp",
-    creatorId: "1515531815594864640",
-    images: ["https://casearch.vercel.app/static/macro.jpeg"],
+    creator: "@khomie_",
+    images: ["https://casesearch.vercel.app/static/macro.jpeg"],
   },
 };
 

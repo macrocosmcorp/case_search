@@ -44,7 +44,7 @@ function AboutBlock() {
   return (
     <div className="w-full px-2 py-1 border-tiny border-lines-soft">
       <p className="text-basesm font-sans font-normal text-letter-default">
-        Casearch allows you to semantically search through a corpus of SCOTUS
+        Case Search allows you to semantically search through a corpus of SCOTUS
         opinions. This means you can just describe the situation in your words
         instead of struggling to figure out the right keywords and phrases. Use
         the search bar above, and we&apos;ll find the most relevant opinions for
